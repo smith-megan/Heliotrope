@@ -1,33 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react"
+import One from "./assets/photos/1.jpg"
+import Two from "./assets/photos/2.jpg"
+import Three from "./assets/photos/3.jpg"
+import Four from "./assets/photos/4.jpg"
+import Five from "./assets/photos/5.jpg"
+import Six from "./assets/photos/6.jpg"
+
+import "./App.css"
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [mouse, setMouse] = useState(0)
+  const [mouseChange, setMouseChange] = useState(0)
+  const [percentage, setPercentage] = useState(0)
 
+  let scroll = (e) => {
+    setMouse(e.clientX)
+    console.log(mouse, "Mouse")
+  }
+
+  let moved = (e) => {
+    setMouseChange(e.clientX)
+    console.log(mouseChange, "mousechange")
+  }
+
+  useEffect(() => {
+    // const maxDistance= 1/2window
+    // const percentage=(mouseChange/maxDistance)*100
+    setPercentage((mouse - mouseChange) * 100)
+    console.log(percentage, "percentage")
+  }, [mouseChange])
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div
+        className="photo-track"
+        onDragStart={(e) => {
+          scroll(e)
+        }}
+        onDrag={(e) => {
+          moved(e)
+        }}
+        draggable="true"
+      >
+        <img className="photo" src={One} draggable="false" />
+        <img className="photo" src={Two} draggable="false" />
+        <img className="photo" src={Three} draggable="false" />
+        <img className="photo" src={Four} draggable="false" />
+        <img className="photo" src={Five} draggable="false" />
+        <img className="photo" src={Six} draggable="false" />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
