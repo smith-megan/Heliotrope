@@ -12,13 +12,18 @@ function App() {
   const [mouse, setMouse] = useState(0)
   const [mouseChange, setMouseChange] = useState(0)
   const [percentage, setPercentage] = useState(0)
+  const [down, setDown] = useState(false)
 
   let scroll = (e) => {
     setMouse(e.clientX)
     console.log(mouse, "Mouse")
+    setDown(true)
   }
 
   let moved = (e) => {
+    if (!down) {
+      return
+    }
     setMouseChange(e.clientX)
     console.log(mouseChange, "mousechange")
   }
@@ -26,22 +31,33 @@ function App() {
   useEffect(() => {
     // const maxDistance= 1/2window
     // const percentage=(mouseChange/maxDistance)*100
-    setPercentage((mouse - mouseChange) * 100)
+    setPercentage(((mouse - mouseChange) / 500) * 100)
     console.log(percentage, "percentage")
   }, [mouseChange])
   return (
     <>
       <div
-        className="photo-track"
-        onDragStart={(e) => {
+        className={"photo-track"}
+        style={{ transform: `translateX(${percentage}%)` }}
+        onMouseDown={(e) => {
           scroll(e)
         }}
-        onDrag={(e) => {
+        onMouseMove={(e) => {
           moved(e)
         }}
-        draggable="true"
+        onMouseUp={() => {
+          setDown(false)
+        }}
+        onMouseLeave={() => {
+          setDown(false)
+        }}
       >
-        <img className="photo" src={One} draggable="false" />
+        <img
+          className={"photo"}
+          style={{ objectPosition: `${percentage}px 50%` }}
+          src={One}
+          draggable="false"
+        />
         <img className="photo" src={Two} draggable="false" />
         <img className="photo" src={Three} draggable="false" />
         <img className="photo" src={Four} draggable="false" />

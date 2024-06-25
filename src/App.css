@@ -13,8 +13,8 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(0%, -50%);
-
+  transform: translateY(-50%);
+  transition-duration: 4s;
   overflow: hidden;
 }
 .photo {
@@ -22,6 +22,7 @@
   height: 56vmin;
   object-fit: cover;
   object-position: center;
+  transition-duration: 4s;
 }
 @keyframes logo-spin {
   from {
