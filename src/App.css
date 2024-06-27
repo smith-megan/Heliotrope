@@ -1,8 +1,9 @@
 #root {
   height: 100vh;
   width: 100vw;
-  background-color: black;
+  /* background-color: black; */
   margin: 0rem;
+  padding: 0%;
   overflow: hidden;
   text-align: center;
 }
@@ -12,29 +13,15 @@
   gap: 4vmin;
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-  transition-duration: 4s;
+  top: 25%;
+  /* transform: translateY(-50%); */
+  transition-duration: 3s;
   overflow: hidden;
 }
 .photo {
   width: 40vmin;
   height: 56vmin;
   object-fit: cover;
-  object-position: center;
-  transition-duration: 4s;
-}
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+  object-position: 100% center;
+  transition-duration: 3;
 }

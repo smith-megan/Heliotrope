@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import One from "./assets/photos/1.jpg"
 import Two from "./assets/photos/2.jpg"
 import Three from "./assets/photos/3.jpg"
@@ -17,6 +17,7 @@ function App() {
   let scroll = (e) => {
     setMouse(e.clientX)
     console.log(mouse, "Mouse")
+    setMouseChange(0)
     setDown(true)
   }
 
@@ -26,14 +27,19 @@ function App() {
     }
     setMouseChange(e.clientX)
     console.log(mouseChange, "mousechange")
+    const newPercent = percentage + ((mouse - mouseChange) / 500) * -100
+    const constrainedPercent = Math.max(Math.min(newPercent, 0), -100)
+    setPercentage(constrainedPercent)
+    console.log(percentage)
   }
 
-  useEffect(() => {
-    // const maxDistance= 1/2window
-    // const percentage=(mouseChange/maxDistance)*100
-    setPercentage(((mouse - mouseChange) / 500) * 100)
-    console.log(percentage, "percentage")
-  }, [mouseChange])
+  // useEffect(() => {
+  //   // const maxDistance= 1/2window
+  //   // const percentage=(mouseChange/maxDistance)*100
+  //   setPercentage(((mouse - mouseChange) / 1000) * 100)
+  //   console.log(percentage, "percentage")
+  // }, [mouseChange])
+
   return (
     <>
       <div
@@ -54,15 +60,40 @@ function App() {
       >
         <img
           className={"photo"}
-          style={{ objectPosition: `${percentage}px 50%` }}
+          style={{ objectPosition: `${percentage + 100} 100%` }}
           src={One}
           draggable="false"
         />
-        <img className="photo" src={Two} draggable="false" />
-        <img className="photo" src={Three} draggable="false" />
-        <img className="photo" src={Four} draggable="false" />
-        <img className="photo" src={Five} draggable="false" />
-        <img className="photo" src={Six} draggable="false" />
+        <img
+          className="photo"
+          style={{ objectPosition: `${percentage}px 50%` }}
+          src={Two}
+          draggable="false"
+        />
+        <img
+          className="photo"
+          style={{ objectPosition: `${percentage}px 50%` }}
+          src={Three}
+          draggable="false"
+        />
+        <img
+          className="photo"
+          style={{ objectPosition: `${percentage}px 50%` }}
+          src={Four}
+          draggable="false"
+        />
+        <img
+          className="photo"
+          style={{ objectPosition: `${percentage}px 50%` }}
+          src={Five}
+          draggable="false"
+        />
+        <img
+          className="photo"
+          style={{ objectPosition: `${percentage}px 50%` }}
+          src={Six}
+          draggable="false"
+        />
       </div>
     </>
   )
